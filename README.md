@@ -2,7 +2,7 @@
 
 This is the repository associated to the paper:
 
-**A Hitchhiker's Guide to Statistical Comparisons of Reinforcement Learning Algorithms.**
+[**A Hitchhiker's Guide to Statistical Comparisons of Reinforcement Learning Algorithms.**](https://arxiv.org/abs/1904.06979)
 
 This code serves two purposes: reproducing the experiments from the paper and showing an example 
 of rigorous testing and visualization of algorithm performances.
