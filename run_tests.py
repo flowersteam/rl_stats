@@ -22,7 +22,7 @@ def run_test_and_plot(data1,  # array of performance of dimension (n_steps, n_se
                       confidence_level=0.01,  # confidence level alpha of the test
                       id_central='median',  # id of the central tendency ('mean' or 'median')
                       id_error=80,  # id of the error areas ('std', 'sem', or percentiles in ]0, 100]
-                      legends=None,  # labels of the two input vectors
+                      legends='alg 1/alg 2',  # labels of the two input vectors
                       xlabel='training steps',  # label of the x axis
                       save=True,  # save in ./plot.png if True
                       downsampling_fact=5  # factor of downsampling on the x-axis for visualization purpose (increase for smoother plots)
@@ -78,9 +78,8 @@ def run_test_and_plot(data1,  # array of performance of dimension (n_steps, n_se
     plt.plot(steps, central2, linewidth=10)
     plt.fill_between(steps, low1, high1, alpha=0.3)
     plt.fill_between(steps, low2, high2, alpha=0.3)
-    if legends is None:
-        legends = ('alg 1', 'alg 2')
-    leg = ax.legend(legends, frameon=False)
+    splitted = legends.split('/')
+    leg = ax.legend((splitted[0], splitted[1]), frameon=False)
 
     # plot significative difference as dots
     idx = np.argwhere(sign_diff == 1)
@@ -102,22 +101,24 @@ def run_test_and_plot(data1,  # array of performance of dimension (n_steps, n_se
 
 if __name__ == '__main__':
     import argparse
+    import sys
     data1 = np.loadtxt('./data/sac_hc_all_perfs.txt')
     data2 = np.loadtxt('./data/td3_hc_all_perfs.txt')
     sample_size = 20
     data1 = data1[:300, np.random.randint(0, data1.shape[1], sample_size)]
     data2 = data2[:, np.random.randint(0, data1.shape[1], sample_size)]
-    legends = ['SAC', 'TD3']
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     add = parser.add_argument
-    add('--data1', type=str, default=data1, help='path to text file containing array of performance of dimension (n_steps, n_seeds) for alg 1')
-    add('--data2', type=str, default=data2, help='path to text file containing array of performance of dimension (n_steps, n_seeds) for alg 2')
+    add('--data1', type=str, default=data1, help='path to text file containing array of performance of dimension (n_steps, n_seeds) for alg 1. Can also receive the array '
+                                                 'directly.')
+    add('--data2', type=str, default=data2, help='path to text file containing array of performance of dimension (n_steps, n_seeds) for alg 2. Can also receive the array '
+                                             'directly.')
     add('--point_every', type=int, default=1, help='evaluation frequency, one datapoint every X steps/episodes')
     add('--test_id', type=str, default="welch", help="choose in [t_test, welch, mann_whitney, ranked_t_test, bootstrap, permutation], welch recommended (see paper)")
     add('--confidence_level', type=float, default=0.01, help='confidence level alpha of the test')
     add('--id_central', type=str, default='median', help="id of the central tendency ('mean' or 'median')")
     add('--id_error', default=80, help="id of the error areas ('std', 'sem', or percentiles in ]0, 100]")
-    add('--legends', default=None, help='labels of the two input vectors (str, str)')
+    add('--legends', type=str, default='alg 1/alg 2', help='labels of the two input vectors "legend1/legend2"')
     add('--xlabel', type=str, default='training episodes', help='label of the x axis, usually episodes or steps')
     add('--save', type=bool, default=True, help='save in ./plot.png if True')
     add('--downsampling_fact', type=int, default=5, help='factor of downsampling on the x-axis for visualization purpose (increase for smoother plots)')

@@ -14,6 +14,12 @@ def run_permutation_test(all_data, n1, n2):
     return data_a.mean() - data_b.mean()
 
 def compute_central_tendency_and_error(id_central, id_error, sample):
+
+    try:
+        id_error = int(id_error)
+    except:
+        pass
+
     if id_central == 'mean':
         central = np.nanmean(sample, axis=1)
     elif id_central == 'median':
