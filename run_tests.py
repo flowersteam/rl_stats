@@ -105,7 +105,7 @@ if __name__ == '__main__':
     data1 = np.loadtxt('./data/sac_hc_all_perfs.txt')
     data2 = np.loadtxt('./data/td3_hc_all_perfs.txt')
     sample_size = 20
-    data1 = data1[:300, np.random.randint(0, data1.shape[1], sample_size)]
+    data1 = data1[:, np.random.randint(0, data1.shape[1], sample_size)]
     data2 = data2[:, np.random.randint(0, data1.shape[1], sample_size)]
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     add = parser.add_argument
