@@ -13,6 +13,27 @@ def run_permutation_test(all_data, n1, n2):
     data_b = all_data[-n2:]
     return data_a.mean() - data_b.mean()
 
+def compute_central_tendency_and_error(id_central, id_error, sample):
+    if id_central == 'mean':
+        central = np.nanmean(sample, axis=1)
+    elif id_central == 'median':
+        central = np.nanmedian(sample, axis=1)
+    else:
+        raise NotImplementedError
+
+    if isinstance(id_error, int):
+        low = np.nanpercentile(sample, q=int((100 - id_error) / 2), axis=1)
+        high = np.nanpercentile(sample, q=int(100 - (100 - id_error) / 2), axis=1)
+    elif id_error == 'std':
+        low = central - np.nanstd(sample, axis=1)
+        high = central + np.nanstd(sample, axis=1)
+    elif id_error == 'sem':
+        low = central - np.nanstd(sample, axis=1) / np.sqrt(sample.shape[0])
+        high = central + np.nanstd(sample, axis=1) / np.sqrt(sample.shape[0])
+    else:
+        raise NotImplementedError
+
+    return central, low, high
 
 def run_test(test_id, data1, data2, alpha=0.05):
     """
@@ -34,19 +55,19 @@ def run_test(test_id, data1, data2, alpha=0.05):
         rejection = np.sign(res.upper_bound) == np.sign(res.lower_bound)
         return rejection
 
-    elif test_id == 't-test':
+    elif test_id == 't_test':
         _, p = ttest_ind(data1, data2, equal_var=True)
         return p < alpha
 
-    elif test_id == "Welch t-test":
+    elif test_id == "welch":
         _, p = ttest_ind(data1, data2, equal_var=False)
         return p < alpha
 
-    elif test_id == 'Mann-Whitney':
+    elif test_id == 'mann_whitney':
         _, p = mannwhitneyu(data1, data2, alternative='two-sided')
         return p < alpha
 
-    elif test_id == 'Ranked t-test':
+    elif test_id == 'ranked_t_test':
         all_data = np.concatenate([data1.copy(), data2.copy()], axis=0)
         ranks = rankdata(all_data)
         ranks1 = ranks[: n1]

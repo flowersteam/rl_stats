@@ -11,7 +11,7 @@ font = {'family': 'normal',
         'size': 70}
 matplotlib.rc('font', **font)
 sys.path.append('../')
-from rl_stats.tests import run_test
+from rl_stats.tests import run_test, compute_central_tendency_and_error
 
 save = False  # save in ./plot.png if True
 
@@ -45,30 +45,6 @@ sample2 = sample2[steps, :]
 sign_diff = np.zeros([len(steps)])
 for i in range(len(steps)):
     sign_diff[i] = run_test(test_id, sample1[i, :], sample2[i, :], alpha=confidence_level)
-
-
-def compute_central_tendency_and_error(id_central, id_error, sample):
-    if id_central == 'mean':
-        central = np.nanmean(sample, axis=1)
-    elif id_central == 'median':
-        central = np.nanmedian(sample, axis=1)
-    else:
-        raise NotImplementedError
-
-    if isinstance(id_error, int):
-        low = np.nanpercentile(sample, q=int((100 - id_error) / 2), axis=1)
-        high = np.nanpercentile(sample, q=int(100 - (100 - id_error) / 2), axis=1)
-    elif id_error == 'std':
-        low = central - np.nanstd(sample, axis=1)
-        high = central + np.nanstd(sample, axis=1)
-    elif id_error == 'sem':
-        low = central - np.nanstd(sample, axis=1) / np.sqrt(sample.shape[0])
-        high = central + np.nanstd(sample, axis=1) / np.sqrt(sample.shape[0])
-    else:
-        raise NotImplementedError
-
-    return central, low, high
-
 
 central1, low1, high1 = compute_central_tendency_and_error(id_central, id_error, sample1)
 central2, low2, high2 = compute_central_tendency_and_error(id_central, id_error, sample2)
