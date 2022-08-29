@@ -7,8 +7,8 @@ font = {'family': 'normal',
 matplotlib.rc('font', **font)
 
 sys.path.append('../')
-from rl_stats.distributions import get_distribution_pairs
-from rl_stats.tests import tests_list, run_test
+from distributions import get_distribution_pairs
+from tests import tests_list, run_test
 
 
 colors = [[0, 0.447, 0.7410], [0.85, 0.325, 0.098], [0.466, 0.674, 0.188], [0.494, 0.1844, 0.556],

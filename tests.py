@@ -61,19 +61,19 @@ def run_test(test_id, data1, data2, alpha=0.05):
         rejection = np.sign(res.upper_bound) == np.sign(res.lower_bound)
         return rejection
 
-    elif test_id == 't_test':
+    elif test_id == 't-test':
         _, p = ttest_ind(data1, data2, equal_var=True)
         return p < alpha
 
-    elif test_id == "welch":
+    elif test_id == "Welch t-test":
         _, p = ttest_ind(data1, data2, equal_var=False)
         return p < alpha
 
-    elif test_id == 'mann_whitney':
+    elif test_id == 'Mann-Whitney':
         _, p = mannwhitneyu(data1, data2, alternative='two-sided')
         return p < alpha
 
-    elif test_id == 'ranked_t_test':
+    elif test_id == 'Ranked t-test':
         all_data = np.concatenate([data1.copy(), data2.copy()], axis=0)
         ranks = rankdata(all_data)
         ranks1 = ranks[: n1]

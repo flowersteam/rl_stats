@@ -4,8 +4,7 @@ This is the repository associated to the paper:
 
 [**A Hitchhiker's Guide to Statistical Comparisons of Reinforcement Learning Algorithms.**](https://arxiv.org/abs/1904.06979)
 
-This code serves two purposes: reproducing the experiments from the paper and showing an example 
-of rigorous testing and visualization of algorithm performances.
+This code serves two purposes: reproducing the experiments from the paper and showing an example of basic testing and visualization of algorithm performances.
 
 ## Reproducing the Results:
 
@@ -21,7 +20,7 @@ Possible studies:
 * unequal_dist_unequal_var_1: here the first distribution is the one that has the smallest std
 * unequal_dist_unequal_var_2: here the first distribution has the largest std
 
-This creates a pickle file in ./data/equal_dist_equal_var/ for each pair of distributions.
+This creates a pickle file in ./data/{study_name}/ for each pair of distributions.
 A bash file is made available to launch the experiment on a slurm cluster.
 
 It is advised to run the experiment with fewer iterations first, to make sure everything works.

@@ -118,7 +118,7 @@ if __name__ == '__main__':
     add('--confidence_level', type=float, default=0.01, help='confidence level alpha of the test')
     add('--id_central', type=str, default='median', help="id of the central tendency ('mean' or 'median')")
     add('--id_error', default=80, help="id of the error areas ('std', 'sem', or percentiles in ]0, 100]")
-    add('--legends', type=str, default='alg 1/alg 2', help='labels of the two input vectors "legend1/legend2"')
+    add('--legends', type=str, default='SAC/TD3', help='labels of the two input vectors "legend1/legend2"')
     add('--xlabel', type=str, default='training episodes', help='label of the x axis, usually episodes or steps')
     add('--save', type=bool, default=True, help='save in ./plot.png if True')
     add('--downsampling_fact', type=int, default=5, help='factor of downsampling on the x-axis for visualization purpose (increase for smoother plots)')

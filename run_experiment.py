@@ -34,8 +34,7 @@ just run the plot_false_positive.py script:
     python3 table_from_results.py --study equal_dist_equal_var
 
 """
-
-
+import os
 import sys
 import pickle
 from multiprocessing import Pool
@@ -45,8 +44,8 @@ import numpy as np
 
 
 sys.path.append('../')
-from rl_stats.distributions import sample, get_distribution_pairs
-from rl_stats.tests import tests_list, run_test
+from distributions import sample, get_distribution_pairs
+from tests import tests_list, run_test
 
 
 
@@ -85,7 +84,9 @@ def compute_stats(distrib):
                 results_array[i_t, i_s, i_e] = rejection_rate
 
     if save:
-        with open('./data/' + STUDY + '/results_' + STUDY + '_' + distrib[0] + '_' + distrib[1] + '.pk', 'wb') as f:
+        save_path = './data/' + STUDY
+        os.makedirs(save_path, exist_ok=True)
+        with open(save_path + '/results_' + STUDY + '_' + distrib[0] + '_' + distrib[1] + '.pk', 'wb') as f:
             pickle.dump(results_array, f)
 
 
@@ -112,5 +113,5 @@ if __name__ == '__main__':
         p.map(compute_stats, distrib_list)
 
 
-    print('Done in', time.time() - start)
+    print('Done in', time.time() - start, ' secs.')
 
