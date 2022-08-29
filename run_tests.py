@@ -114,7 +114,7 @@ if __name__ == '__main__':
     add('--data2', type=str, default=data2, help='path to text file containing array of performance of dimension (n_steps, n_seeds) for alg 2. Can also receive the array '
                                              'directly.')
     add('--point_every', type=int, default=1, help='evaluation frequency, one datapoint every X steps/episodes')
-    add('--test_id', type=str, default="welch", help="choose in [t_test, welch, mann_whitney, ranked_t_test, bootstrap, permutation], welch recommended (see paper)")
+    add('--test_id', type=str, default="Welch t-test", help="choose in [t-test, Welch t-test, Mann-Whitney, Ranked t-test, bootstrap, permutation], welch recommended (see paper)")
     add('--confidence_level', type=float, default=0.01, help='confidence level alpha of the test')
     add('--id_central', type=str, default='median', help="id of the central tendency ('mean' or 'median')")
     add('--id_error', default=80, help="id of the error areas ('std', 'sem', or percentiles in ]0, 100]")

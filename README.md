@@ -10,7 +10,7 @@ The code serves two purposes: reproducing the experiments from the paper and all
 ## RL algorithm comparisons made easy
 You can use the command 
 ```
-python run_tests.py --data1 path_to_data1 --data2 path_to_data2 --test_id welch --confidence_level 0.01 --id_central 'median' --id_central 80 --legends 'alg 1/alg 2'
+python run_tests.py --data1 path_to_data1 --data2 path_to_data2 --test_id "Welch t-test" --confidence_level 0.01 --id_central 'median' --id_error 80 --legends 'alg 1/alg 2'
 ```
 
 `path_to_data` should be the path to a text file containing an array of shape (n_steps, n_seeds). The number of seeds and steps can differ between the two samples. This will save the figure under `./plot.png`.
